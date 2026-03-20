@@ -1,6 +1,8 @@
 # March Madness Tracker - Windows
 
-A Windows system tray application that tracks NCAA March Madness tournament scores in real time using the ESPN API.
+A Windows system tray application that tracks NCAA March Madness tournament scores in real time using the ESPN API. Available in two versions: a lightweight Python version and a full WPF (.NET 8) app.
+
+![Windows](https://img.shields.io/badge/Windows-10%2F11-blue) ![.NET](https://img.shields.io/badge/.NET-8.0-purple) ![Python](https://img.shields.io/badge/Python-3.10+-green) ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Features
 
@@ -14,12 +16,27 @@ A Windows system tray application that tracks NCAA March Madness tournament scor
 - **Dark theme** UI with team color accents
 - **Settings**: favorite team, notification toggle, ticker size
 
-## Requirements
+## Installation
 
-- Python 3.10+
-- Windows 10/11 (for tray icon and toast notifications)
+### Option A: WPF App (.NET 8) - Recommended
 
-## Quick Start
+**Requirements:** [.NET 8 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) or SDK
+
+```bash
+cd MarchMadnessWPF
+dotnet run
+```
+
+To build a standalone .exe:
+```bash
+cd MarchMadnessWPF
+dotnet publish -c Release -r win-x64 --self-contained
+```
+The executable will be at `bin/Release/net8.0-windows/win-x64/publish/MarchMadnessTracker.exe`.
+
+### Option B: Python Version - Lightweight
+
+**Requirements:** Python 3.10+, Windows 10/11
 
 ```bash
 # 1. Install dependencies

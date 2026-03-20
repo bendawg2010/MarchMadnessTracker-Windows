@@ -1,0 +1,107 @@
+<UserControl x:Class="MarchMadnessTracker.Views.ScheduleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource DarkBgBrush}">
+
+    <Grid Margin="12,8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Summary -->
+        <Border Grid.Row="0" Background="{StaticResource DarkSurfaceBrush}"
+                CornerRadius="8" Padding="12,10" Margin="0,4,0,8">
+            <TextBlock Text="{Binding Summary}"
+                       FontSize="13"
+                       Foreground="{StaticResource TextPrimaryBrush}"
+                       TextAlignment="Center" />
+        </Border>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding ScheduleGroups}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,0,16">
+                            <!-- Date Header -->
+                            <Border Background="{StaticResource DarkCardBrush}"
+                                    CornerRadius="6" Padding="12,8" Margin="0,0,0,6">
+                                <TextBlock Text="{Binding DateDisplay}"
+                                           FontSize="15" FontWeight="Bold"
+                                           Foreground="{StaticResource AccentBrush}" />
+                            </Border>
+
+                            <!-- Games -->
+                            <ItemsControl ItemsSource="{Binding Games}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource GameCard}"
+                                                BorderBrush="{StaticResource DarkCardBrush}"
+                                                BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="60" />
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Time -->
+                                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding TimeDisplay}"
+                                                               FontSize="12" FontWeight="SemiBold"
+                                                               Foreground="{Binding State, Converter={StaticResource StateToColor}}" />
+                                                </StackPanel>
+
+                                                <!-- Teams -->
+                                                <StackPanel Grid.Column="1" Margin="8,0">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Border Background="{Binding AwayColor, Converter={StaticResource HexToColor}}"
+                                                                CornerRadius="3" Padding="4,1" Margin="0,0,4,0"
+                                                                Visibility="{Binding AwaySeed, Converter={StaticResource SeedToVis}}">
+                                                            <TextBlock Text="{Binding AwaySeed}" FontSize="9"
+                                                                       FontWeight="Bold" Foreground="White" />
+                                                        </Border>
+                                                        <TextBlock Text="{Binding AwayAbbreviation}"
+                                                                   FontSize="13" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                                    </StackPanel>
+                                                    <TextBlock Text="vs" FontSize="9"
+                                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                                               Margin="0,1" />
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Border Background="{Binding HomeColor, Converter={StaticResource HexToColor}}"
+                                                                CornerRadius="3" Padding="4,1" Margin="0,0,4,0"
+                                                                Visibility="{Binding HomeSeed, Converter={StaticResource SeedToVis}}">
+                                                            <TextBlock Text="{Binding HomeSeed}" FontSize="9"
+                                                                       FontWeight="Bold" Foreground="White" />
+                                                        </Border>
+                                                        <TextBlock Text="{Binding HomeAbbreviation}"
+                                                                   FontSize="13" FontWeight="SemiBold"
+                                                                   Foreground="{StaticResource TextPrimaryBrush}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+
+                                                <!-- Score / Info -->
+                                                <StackPanel Grid.Column="2" VerticalAlignment="Center"
+                                                            HorizontalAlignment="Right">
+                                                    <TextBlock Text="{Binding ScoreDisplay}"
+                                                               FontSize="14" FontWeight="Bold"
+                                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                                               TextAlignment="Right" />
+                                                    <TextBlock Text="{Binding Broadcast}"
+                                                               FontSize="9"
+                                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                                               TextAlignment="Right" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
